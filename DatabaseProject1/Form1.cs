@@ -13,6 +13,7 @@ using System.Text.Json.Nodes;
 using Newtonsoft.Json;
 
 using Dapper;
+using Microsoft.VisualBasic;
 namespace DatabaseProject1
 {
    
@@ -33,7 +34,7 @@ namespace DatabaseProject1
         {
             
             orders deserializedOrders = JsonConvert.DeserializeObject<orders>(Chris);
-            deserializedOrders.setOrder();
+            
             
 
             
@@ -44,6 +45,7 @@ namespace DatabaseProject1
             {
                 connection.Open();
                 _ = connection.Execute(sql, new { Item_Type = deserializedOrders.Order_ID, Item_Name = deserializedOrders.Item_Name, Qty = deserializedOrders.Qty, Price_Each = deserializedOrders.Price_each, Customer_ID = deserializedOrders.Customer_ID });
+                connection.Close();
             }
         }
 
@@ -56,18 +58,19 @@ namespace DatabaseProject1
         {
             String pulleddata = "select * from Orders";
             orders chris = new orders();
-            String  serialized = JsonConvert.SerializeObject(chris.order[0]);
-           
+          
+
             using (var connection = new SqlConnection(connectionString))
             {
                 connection.Open();
-                var orders1 = connection.Query<orders>(pulleddata);
-               
+                var orders1= connection.Query<orders>(pulleddata);
+                SqlDataAdapter da = new SqlDataAdapter(pulleddata, connection);
+                DataTable dataTable = new DataTable();
+                da.Fill(dataTable);
+                File.AppendAllText(@"C:\Users\chris\source\repos\DatabaseProject1\DatabaseProject1.json.txt", JsonConvert.SerializeObject(dataTable));
                     
-                    File.AppendAllText(@"C:\Users\chris\source\repos\DatabaseProject1\DatabaseProject1.json.txt", JsonConvert.SerializeObject(orders1));
-                    
-                
-                
+                connection.Close();
+
             }
         }
     }

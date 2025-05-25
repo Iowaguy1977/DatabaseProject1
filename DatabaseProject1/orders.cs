@@ -11,7 +11,6 @@ namespace DatabaseProject1
 
     public class orders
     {
-        public object[] order = new object[5];
         public int Order_ID;
         public string Item_Type;
         public string Item_Name;
@@ -19,15 +18,7 @@ namespace DatabaseProject1
         public double Price_each;
         public int Customer_ID;
 
-        public void setOrder()
-        {
-            order[0]=(Order_ID);
-            order[1]=(Item_Type);
-            order[2]=(Item_Name);
-            order[3]=(Qty);
-            order[4]=(Price_each);
-            order[5]=(Customer_ID);
-        }
+       
         
     }
       
