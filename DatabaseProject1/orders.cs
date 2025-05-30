@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace DatabaseProject1
 {
 
-    public class orders
+    public class Orders
     {
         public int Order_ID;
         public string Item_Type;
@@ -17,6 +17,9 @@ namespace DatabaseProject1
         public int Qty;
         public double Price_each;
         public int Customer_ID;
+
+       
+        
 
        
         
